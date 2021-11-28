@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "defaultSchema": "user",
+  "schemas": [
+    {
+      "name": "user",
+      "type": "custom",
+      "factory": "org.apache.calcite.adapter.cassandra.CassandraSchemaFactory",
+      "operand": {
+        "host": "localhost",
+        "port": "3310",
+        "keyspace": "user"
+      }
+    }
+  ]
+}

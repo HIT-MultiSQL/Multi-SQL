@@ -1,0 +1,28 @@
+-basic dependency
+$ sudo apt install python
+$ sudo apt-get install cmake git autoconf libtool
+
+boost
+$ sudo apt-get install libboost-all-dev
+
+rocksdb:
+compile and install rocksdb (you need install rocksdb's dependency first, see rocksdb/INSTALL.md)
+$ git clone https://github.com/facebook/rocksdb.git
+$ cd rocksdb
+$ make shared_lib
+$ sudo make install
+
+wiredtiger (must install through git)
+$ git clone git://github.com/wiredtiger/wiredtiger.git
+$ cd wiredtiger
+$ sh autogen.sh
+$ ./configure --enable-snappy --enable-lz4 --enable-zlib
+$ make
+$ sudo make install
+
+-dependency for python script
+tkinter
+$ sudo apt-get install python3-tk
+
+matplotlib
+$  pip install -i https://pypi.tuna.tsinghua.edu.cn/simple matplotlib

@@ -1,0 +1,191 @@
+lineItem table info:
+total rows: 11997996
+max row length:154
+filed 1 len is: 8 int pk
+filed 2 len is: 6 int pk
+filed 3 len is: 5 int pk
+filed 4 len is: 1 int
+filed 5 len is: 2 int
+filed 6 len is: 9 float
+filed 7 len is: 4 float
+filed 8 len is: 4 float
+filed 9 len is: 1 letter
+filed 10 len is: 1 letter
+filed 11 len is: 10 date
+filed 12 len is: 10 date
+filed 13 len is: 10 date
+filed 14 len is: 17 string (enum)
+filed 15 len is: 7 string (enum)
+filed 16 len is: 43 string
+
+测试目标
+工作负载
+W1:Write-only(seq)
+W2:Write-only(rand)
+W3:Write-only(rand choppy)
+W4:Read-only(seqfile)
+W5:Read-only(randfile)
+W6:Read-only(randfile choppy)
+W7:RW(seq)
+W8:RW(rand)
+W9:RW(rand choppy)
+
+存储类型
+S1:LSM-tier
+S2:LSM-level
+S3:B
+S4:B-colStore
+
+值大小
+V1:4B
+V2:16B
+V3:64B
+V4:154B
+
+读放大理论值
+l1+maxl-1
+
+写放大理论值
+l2
+
+
+测试语句
+1. insert
+2. update
+3. scan
+4. Q3 (三表查询, 在orderKey上join, 在o&l表上作过滤)
+5. Q12 (两表查询, 在orderKey上join, 在l表上作过滤)
+6. Q17 (两表查询, 在partKey上join, 在p&l表上作过滤)
+
+W1 insert+update
+W3 insert 10000 + Q3 1
+W4 insert 10 + Q3 10
+W4 Q3
+
+Return the first 10 selected rows
+select
+    l_orderkey,
+    sum(l_extendedprice*(1-l_discount)) as revenue,
+    o_orderdate,
+    o_shippriority
+from
+    customer,
+    orders,
+    lineitem
+where
+    c_mktsegment = '[SEGMENT]'
+    and c_custkey = o_custkey
+    and l_orderkey = o_orderkey
+    and o_orderdate < date '[DATE]'
+    and l_shipdate > date '[DATE]'
+group by
+    l_orderkey,
+    o_orderdate,
+    o_shippriority
+order by
+    revenue desc,
+    o_orderdate;
+
+SEGEMENT in "AUTOMOBILE", "BUILDING", "FURNITURE", "MACHINERY", "HOUSEHOLD"
+DATE between 1995-03-01 AND 1995-03-31
+
+BUILDING 03-01
+OK:4791171 RE:453064 OD:1995-02-23 SP:0
+OK:1310209 RE:431390 OD:1995-02-23 SP:0
+OK:519556 RE:421200 OD:1995-02-15 SP:0
+OK:10941541 RE:420980 OD:1995-01-25 SP:0
+OK:7462725 RE:407778 OD:1995-02-23 SP:0
+OK:5892132 RE:402355 OD:1995-02-03 SP:0
+OK:11982337 RE:401635 OD:1995-02-15 SP:0
+OK:4178471 RE:401045 OD:1995-02-28 SP:0
+OK:10671716 RE:395660 OD:1995-02-28 SP:0
+OK:8210311 RE:393017 OD:1995-02-23 SP:0
+
+
+seq insert test
+insert lineitem wt Time:31277ms (pred_1:25200ms, pred_2:2330ms, total:27530ms)
+insert lineitemcol wt Time:175249ms (pred_1: 188160ms, pred_2:15655ms, total:203815ms)
+insert lineitem lsm Time:62886ms (pred_1:64320ms, pred_2:50242ms, total:114562ms)
+
+rand insert test
+insert lineitem wt Time:232479ms
+insert lineitemcol wt Time:173522ms
+insert lineitem lsm Time:90637ms
+
+customer use Time:74ms
+customer use Time:29ms
+orders use Time:3633ms, found 294419
+orders use Time:1400ms, found 294419
+seq
+Q3 B+ use Time:14760ms (on disk) (pred:48.68*290825 14157)
+Q3 B+ use Time:1517ms (in memory)
+Q3 lsm use Time:17304ms (on disk) (pred:82*290825 23847)
+Q3 LSM use Time:2958ms (in memory)
+Q3 Col use Time:6436ms (on disk) (pred:639.68956415+1496.06720909+1587.34647598+1039.52072018 4762)
+Q5 Col use time:3808ms (in memory)
+
+rand
+Q3 lsm use Time:63275ms (on disk) (pred:54*290825 15704)
+Q3 b+ use Time:288138ms (on disk) (pred:78*290825 22684)
+Q3 col use Time:6301ms (on disk) (pred:639.68956415+1496.06720909+1587.34647598+1039.52072018 4762)
+
+
+select
+    n_name,
+    sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+    customer,
+    orders,
+    lineitem,
+    supplier,
+    nation,
+    region
+where
+    c_custkey = o_custkey 0
+    and l_orderkey = o_orderkey
+    and l_suppkey = s_suppkey
+    and c_nationkey = s_nationkey 0
+    and s_nationkey = n_nationkey 0
+    and n_regionkey = r_regionkey 0
+    and r_name = '[REGION]' 0
+    and o_orderdate >= date '[DATE]'
+    and o_orderdate < date '[DATE]' + interval '1' year
+group by
+    n_name
+order by
+    revenue desc;
+
+prepare use Time:4330ms, found 91368 orders and 4001 suppliers.
+prepare use Time:2393ms, found 91368 orders and 4001 suppliers.
+seq
+Q5 B+ use time:15658ms (on disk)
+Q5 B+ use time:909ms (in memory)
+Q5 Col use time:4549ms (on disk)
+Q5 Col use time:3802ms (in memory)
+Q5 LSM use time:8217ms (on disk)
+Q5 LSM use time:1132ms (in memory)
+rand
+Q5 B+ use time:246790ms (on disk)
+Q5 B+ use time:954ms (in memory)
+Q5 Col use time:4931ms (on disk)
+Q5 Col use time:4014ms (in memory)
+Q5 LSM use time:35802ms (on disk)
+Q5 LSM use time:1265ms (in memory)
+
+final experiment plan
+w1 = Workload(9000000, 10000, 10000, 0, 0)
+w2 = Workload(3000000, 30000, 30000, 5, 5)
+w3 = Workload(0, 5000, 5000, 15, 15)
+w4 = Workload(0, 0, 0, 30, 30)
+
+e1: 0-9,000,000
+LSM(FULL) vs LSM(FULL) vs wt(FULL) 2
+
+e2: 9,000,000-12,000,000
+LSM(FULL) vs LSM(FULL) vs LSM(FULL) 2
+
+e3: OLAP1
+LSM(FULL) vs LSM(COLGROUP) vs LSM(COLGROUP) 2
+
+e4: OLAP2
+LSM(FULL) vs LSM(COLGROUP) vs CS 3

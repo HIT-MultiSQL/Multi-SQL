@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Main-Class: Execution
+Class-Path: jsch-0.1.55.jar cassandra-jdbc-1.2.5.jar cassandra-clientuti
+ l-1.2.5.jar netty-handler-4.0.33.Final.jar libthrift-0.7.0.jar commons-
+ lang-2.4.jar netty-codec-4.0.33.Final.jar cassandra-thrift-1.2.5.jar ne
+ tty-transport-4.0.33.Final.jar netty-buffer-4.0.33.Final.jar netty-comm
+ on-4.0.33.Final.jar guava-16.0.1.jar protobuf-java-2.6.0.jar slf4j-api-
+ 1.7.7.jar cassandra-driver-core-3.0.0.jar mysql-connector-java-8.0.11.j
+ ar metrics-core-3.1.2.jar
+

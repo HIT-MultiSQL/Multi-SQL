@@ -1,0 +1,5 @@
+#define Benchmark_VERSION_MAJOR @storeBenchmark_VERSION_MAJOR@
+#define Benchmark_VERSION_MINOR @storeBenchmark_VERSION_MINOR@
+#define SCRIPT_DIR "@SCRIPT_DIR@"
+#define TBL_DIR "@TBL_DIR@"
+#define DB_DIR "@DB_DIR@"

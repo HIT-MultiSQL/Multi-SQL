@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="relationalInterface:jar2">
+    <output-path>$PROJECT_DIR$/lib2</output-path>
+    <root id="root">
+      <element id="archive" name="relationalInterface.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/lib2/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="relationalInterface" />
+      </element>
+      <element id="library" level="project" name="Maven: io.netty:netty-buffer:4.0.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-common:4.0.33.Final" />
+      <element id="library" level="project" name="Maven: org.apache.maven.archetype:maven-archetype:3.1.2" />
+      <element id="library" level="project" name="Maven: org.apache-extras.cassandra-jdbc:cassandra-jdbc:1.2.5" />
+      <element id="library" level="project" name="Maven: org.apache.cassandra:cassandra-clientutil:1.2.5" />
+      <element id="library" level="project" name="Maven: io.dropwizard.metrics:metrics-core:3.1.2" />
+      <element id="library" level="project" name="Maven: com.jcraft:jsch:0.1.55" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec:4.0.33.Final" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
+      <element id="library" level="project" name="Maven: com.datastax.cassandra:cassandra-driver-core:3.0.0" />
+      <element id="library" level="project" name="Maven: io.netty:netty-handler:4.0.33.Final" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:2.6.0" />
+      <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.4" />
+      <element id="library" level="project" name="Maven: org.apache.thrift:libthrift:0.7.0" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport:4.0.33.Final" />
+      <element id="library" level="project" name="Maven: com.google.guava:guava:16.0.1" />
+      <element id="library" level="project" name="Maven: org.apache.cassandra:cassandra-thrift:1.2.5" />
+      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.11" />
+    </root>
+  </artifact>
+</component>

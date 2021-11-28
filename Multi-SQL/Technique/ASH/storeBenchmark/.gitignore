@@ -1,0 +1,5 @@
+.idea/
+venv/
+cmake-build-debug
+*.so.*
+*.so

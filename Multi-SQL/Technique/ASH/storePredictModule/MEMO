@@ -1,0 +1,35 @@
+w1 = Workload(9000000, 100000, 100000, 0, 0)
+w2 = Workload(3000000, 150000, 100000, 5, 5)
+w3 = Workload(0, 10000, 10000, 10, 10)
+w4 = Workload(0, 0, 0, 30, 30)
+
+0 other method
+['QUANTITY', 'EXTENDEDPRICE', 'DISCOUNT', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'SHIPDATE', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT']
+
+0 my method
+-------------------------------
+>>> rec: wt [['QUANTITY', 'EXTENDEDPRICE', 'DISCOUNT', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'SHIPDATE', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT']]
+-------------------------------
+1 other method
+['QUANTITY', 'EXTENDEDPRICE', 'DISCOUNT', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'SHIPDATE', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT']
+
+1 my method
+-------------------------------
+>>> rec: rocks [['QUANTITY', 'EXTENDEDPRICE', 'DISCOUNT', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'SHIPDATE', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT']]
+-------------------------------
+2 other method
+['EXTENDEDPRICE', 'DISCOUNT', 'SHIPDATE']
+['QUANTITY', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT']
+
+2 my method
+-------------------------------
+>>> rec: rocks [['QUANTITY', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT'], ['EXTENDEDPRICE', 'DISCOUNT', 'SHIPDATE']]
+-------------------------------
+3 other method
+['EXTENDEDPRICE', 'DISCOUNT', 'SHIPDATE']
+['QUANTITY', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT']
+
+3 my method
+-------------------------------
+>>> rec: rocks [['QUANTITY', 'TAX', 'RETURNFLAG', 'LINESTATUS', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE', 'COMMENT'], ['EXTENDEDPRICE', 'DISCOUNT', 'SHIPDATE']]
+-------------------------------
